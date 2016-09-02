@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/container_background"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".activity.HealthyInfoDetailActivity"
+    tools:showIn="@layout/content_news_detail">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/news_detail_timestap"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textColor="@color/secondary_text"
+            android:textSize="14sp"
+            tools:text="06-06 17:24" />
+
+        <TextView
+            android:id="@+id/news_detail_body"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/news_detail_timestap"
+            android:layout_marginTop="10dp"
+            android:lineSpacingExtra="6dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="@color/primary_text"
+            android:textSize="18sp"
+            tools:text="如果要开启的界面设置了这种模式，先查看它是否已经位于任务栈顶端，如果已经位于顶端，就直接复用当前顶端的这个 ，不再去创建新的  没有位于顶端，再去创建新的" />
+
+    </RelativeLayout>
+</android.support.v4.widget.NestedScrollView>

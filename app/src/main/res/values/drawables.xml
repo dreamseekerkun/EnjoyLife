@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <drawable name="sr_primary">@color/sr_color_primary</drawable>
+</resources>
