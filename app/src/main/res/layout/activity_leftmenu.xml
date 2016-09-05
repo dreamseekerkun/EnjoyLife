@@ -9,7 +9,7 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:src="@drawable/meinv"
+        android:src="@drawable/ic_loading"
         android:scaleType="centerCrop"/>
 
     <android.support.v7.widget.RecyclerView

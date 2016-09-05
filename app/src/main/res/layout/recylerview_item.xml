@@ -9,7 +9,7 @@
 
     <ImageView
         android:id="@+id/iv_imageview"
-        android:src="@drawable/meinv"
+        android:src="@drawable/ic_loading"
         android:adjustViewBounds="true"
         android:scaleType="centerCrop"
         android:layout_width="80dp"

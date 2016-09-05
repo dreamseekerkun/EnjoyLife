@@ -39,8 +39,8 @@ public class GlideProxy {
                 .load(url)
                 .centerCrop()
                 .crossFade()
-                .placeholder(R.drawable.loading)//缺省的占位图片，一般可以设置成一个加载中的进度GIF图
-                .error(R.drawable.meinv)//加载失败默认图片
+                .placeholder(R.drawable.ic_loading)//缺省的占位图片，一般可以设置成一个加载中的进度GIF图
+                .error(R.drawable.ic_load_fail)//加载失败默认图片
                 .into(imageView);
     }
 

@@ -22,11 +22,11 @@ public class ShareUtil {
                     SHARE_MEDIA.WEIXIN, SHARE_MEDIA.WEIXIN_CIRCLE, SHARE_MEDIA.SINA,
                     SHARE_MEDIA.QQ, SHARE_MEDIA.QZONE
             };
-    UMImage image;
-    ShareAction shareAction;
+    static UMImage image;
+    static ShareAction shareAction;
+
     private ShareUtil() {
-        shareAction = new ShareAction(activity);
-        image = new UMImage(activity, R.mipmap.start);
+
     }
 
     private static ShareUtil shareUtil;
@@ -38,10 +38,12 @@ public class ShareUtil {
                 shareUtil = new ShareUtil();
             }
         }
+        shareAction = new ShareAction(activity);
+        image = new UMImage(activity, R.mipmap.start);
         return shareUtil;
     }
 
-    public void share(String text,String title,String url){
+    public void share(String text, String title, String url) {
         shareAction.setDisplayList(displaylist)
                 .withText(text)
                 .withTitle(title)
@@ -75,5 +77,6 @@ public class ShareUtil {
             Toast.makeText(activity, "分享取消了", Toast.LENGTH_SHORT).show();
         }
     };
+
 
 }
