@@ -17,6 +17,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 public class HttpClient {
     private static HttpClient mInstance;
+    private static HttpClient YouKuInstance;
     private Retrofit retrofit;
 
     public static HttpClient getIns(String base_url) {
@@ -28,6 +29,14 @@ public class HttpClient {
         return mInstance;
     }
 
+    public static HttpClient getYouKuInstance(String base_url) {
+        if (YouKuInstance == null) {
+            synchronized (HttpClient.class) {
+                if (YouKuInstance == null) YouKuInstance = new HttpClient(base_url);
+            }
+        }
+        return YouKuInstance;
+    }
 
     public HttpClient(String BASE_URL) {
 
@@ -44,7 +53,6 @@ public class HttpClient {
                     .addNetworkInterceptor(new HttpCacheInterceptor())
                     .cache(cache)
                     .build();
-
 
             retrofit = new Retrofit.Builder()
                     .baseUrl(BASE_URL)

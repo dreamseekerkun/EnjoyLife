@@ -9,7 +9,7 @@ import android.view.animation.ScaleAnimation;
 import android.widget.ImageView;
 
 import com.dream.plmm.R;
-import com.squareup.picasso.Picasso;
+import com.dream.plmm.utils.BitmapUtils;
 
 /**
  * Created by likun on 16/3/14.
@@ -30,7 +30,7 @@ public class SplashActivity extends Activity {
     //加载闪屏动画
     private void initSplash() {
 
-        Picasso.with(SplashActivity.this).load(R.mipmap.start).into(imageView);
+        BitmapUtils.display(this,R.mipmap.start,imageView);
 
         //伸缩动画
         final ScaleAnimation scaleAnim = new ScaleAnimation(1.0f, 1.2f, 1.0f, 1.2f,

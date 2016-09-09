@@ -12,4 +12,8 @@ public class BitmapUtils {
 //        Picasso.with(context).load(url).placeholder(R.drawable.loading).error(R.drawable.meinv).into(imageView);
         GlideProxy.getInstance().displayImage(context,url,imageView);
     }
+
+    public static void display(Context context, int resId, ImageView imageView) {
+        GlideProxy.getInstance().displayImage(context,resId,imageView);
+    }
 }

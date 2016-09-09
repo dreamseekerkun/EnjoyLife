@@ -1,11 +1,14 @@
 package com.dream.plmm;
 
+import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 
+import com.dream.plmm.config.Contants;
 import com.dream.plmm.crash.CrashExceptionHandler;
 import com.dream.plmm.crash.SimpleCrashReporter;
 import com.umeng.socialize.PlatformConfig;
+import com.youku.player.YoukuPlayerBaseConfiguration;
 
 
 /**
@@ -15,10 +18,13 @@ public class BasicApplication extends Application {
 
     //各个平台的配置，建议放在全局Application或者程序入口
     {
-        PlatformConfig.setWeixin("wx429c461724b1e524", "f0c181279b6e585d8b1b8524b0d827fd");
-        PlatformConfig.setSinaWeibo("720696056", "a2482148dd048ca1833fa7de7f1766ee");
-        PlatformConfig.setQQZone("1105635056", "nDBcY2GljdnWhhth");
+        PlatformConfig.setWeixin(Contants.WECHAT_ID, Contants.WECHAT_SECRET);
+        PlatformConfig.setSinaWeibo(Contants.WEIBO_ID, Contants.WEIBO_SECRET);
+        PlatformConfig.setQQZone(Contants.QQ_ID, Contants.QQ_SECRET);
+        // TODO: 16/9/7 to open
     }
+
+    public static YoukuPlayerBaseConfiguration configuration;
 
     /**
      * app在sd卡的主目录
@@ -47,6 +53,22 @@ public class BasicApplication extends Application {
         ourInstance = this;
         mContext = getApplicationContext();
         configCollectCrashInfo();
+        configuration = new YoukuPlayerBaseConfiguration(this) {
+            @Override
+            public Class<? extends Activity> getCachingActivityClass() {
+                return null;
+            }
+
+            @Override
+            public Class<? extends Activity> getCachedActivityClass() {
+                return null;
+            }
+
+            @Override
+            public String configDownloadPath() {
+                return null;
+            }
+        };
 
     }
 

@@ -20,8 +20,8 @@
         android:id="@+id/menu_group_3"
         android:checkableBehavior="single">
         <item
-            android:id="@+id/menu_helathy_foods"
-            android:title="@string/HealthyFoods" />
+            android:id="@+id/menu_videos"
+            android:title="@string/Videos" />
     </group>
 
     <group android:id="@+id/menu_group_4">

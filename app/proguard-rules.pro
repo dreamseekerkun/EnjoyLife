@@ -30,3 +30,10 @@
 -dontwarn okio.**
 -keep class okio.**{*;}
 -keep interface okio.**{*;}
+
+-keepattributes EnclosingMethod
+-dontusemixedcaseclassnames
+-dontskipnonpubliclibraryclasses
+-verbose
+-ignorewarnings
+

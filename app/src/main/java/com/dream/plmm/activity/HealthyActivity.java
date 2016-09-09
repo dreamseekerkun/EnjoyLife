@@ -4,13 +4,11 @@ import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v4.widget.DrawerLayout;
 import android.view.Menu;
-import android.view.ViewGroup;
 
 import com.dream.plmm.R;
+import com.dream.plmm.adapter.BaseFragmentStatePagerAdapter;
 import com.dream.plmm.bean.ClassifyHealthy;
 import com.dream.plmm.fragment.HealthyFragment;
 import com.dream.plmm.netWork.ServiceFactory;
@@ -31,8 +29,6 @@ import retrofit2.Response;
 public class HealthyActivity extends BaseActivity {
 
 
-    @Bind(R.id.dl_drawerlayout)
-    DrawerLayout drawerLayout;
     @Bind(R.id.tabs)
     TabLayout mTabs;
     @Bind((R.id.viewpager))
@@ -46,8 +42,7 @@ public class HealthyActivity extends BaseActivity {
         initData();
     }
 
-    private void initData() {
-        DialogUtil.show(this);
+    protected void initData() {
         Call<ClassifyHealthy> call = ServiceFactory.getHealthyService().getHealthyClassify();
         call.enqueue(new Callback<ClassifyHealthy>() {
             @Override
@@ -67,8 +62,9 @@ public class HealthyActivity extends BaseActivity {
     }
 
     private void initViewPager() {
+
         mTabs.setTabMode(TabLayout.MODE_SCROLLABLE);
-        mViewPager.setAdapter(new listPagerAdapter(getSupportFragmentManager()));
+        mViewPager.setAdapter(new listPagerAdapter(getSupportFragmentManager(), healthyType));
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mTabs) {
             @Override
             public void onPageSelected(int position) {
@@ -77,10 +73,10 @@ public class HealthyActivity extends BaseActivity {
         mTabs.setupWithViewPager(mViewPager);
     }
 
-    private class listPagerAdapter extends FragmentStatePagerAdapter {
+    private class listPagerAdapter extends BaseFragmentStatePagerAdapter {
 
-        public listPagerAdapter(FragmentManager fm) {
-            super(fm);
+        public listPagerAdapter(FragmentManager fm, List<ClassifyHealthy.TngouEntity> healthyType) {
+            super(fm,healthyType);
         }
 
         @Override
@@ -89,19 +85,10 @@ public class HealthyActivity extends BaseActivity {
         }
 
         @Override
-        public int getCount() {
-            return healthyType.size();
-        }
-
-        @Override
         public CharSequence getPageTitle(int position) {
             return healthyType.get(position).getTitle();
         }
 
-        @Override
-        public void destroyItem(ViewGroup container, int position, Object object) {
-            super.destroyItem(container, position, object);
-        }
     }
 
 

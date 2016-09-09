@@ -20,6 +20,7 @@ import android.view.WindowManager;
 
 import com.dream.plmm.AppManager;
 import com.dream.plmm.R;
+import com.dream.plmm.utils.DialogUtil;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 import butterknife.ButterKnife;
@@ -44,6 +45,11 @@ public abstract class BaseActivity extends AppCompatActivity {
         initToolBar();
         initDrawerLayout();
     }
+
+    protected void initData(){
+        DialogUtil.show(this);
+    };
+
     public abstract int getLayoutId();
     private void initToolBar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -72,7 +78,8 @@ public abstract class BaseActivity extends AppCompatActivity {
                         case R.id.menu_helathy_info:
                             mClass = HealthyActivity.class;
                             break;
-                        case R.id.menu_helathy_foods:
+                        case R.id.menu_videos:
+                            mClass = VideoActivity.class;
                             break;
                     }
                     drawerLayout.closeDrawer(GravityCompat.START);

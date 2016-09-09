@@ -8,8 +8,16 @@
     <string name="open">打开</string>
     <string name="HuoLaMM">火辣美女</string>
     <string name="HealthyInfo"> 健康知识</string>
-    <string name="HealthyFoods"> 健康食物</string>
+    <string name="Videos">视频爽看</string>
     <string name="messages">Messages</string>
     <!-- 共享过度动画 -->
     <string name="transition_photos">transition_animation_news_photos</string>
+    <string name="share_success">分享成功啦</string>
+    <string name="share_failure">分享失败啦</string>
+    <string name="share_cancel">分享取消了</string>
+    <string name="collect_success">收藏成功啦</string>
+    <string name="player_view_count">观看次数\t</string>
+    <string name="player_comment_count">评论次数\t</string>
+    <string name="player_favor_count">收藏次数\t</string>
+    <string name="player_publish">发布于\t</string>
 </resources>

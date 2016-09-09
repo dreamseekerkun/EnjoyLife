@@ -16,7 +16,8 @@ import android.view.ViewGroup;
 public abstract class BaseFragment extends Fragment {
     protected Activity mActivity;
 
-    public static  String TAG_LOG = null;
+    public static String TAG_LOG = null;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,13 +40,11 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-//        UserClear.onPageStart(this.getActivity(),TAG_LOG);
     }
 
     @Override
     public void onPause() {
         super.onPause();
-//        UserClear.onPageEnd(this.getActivity(),TAG_LOG);
     }
 
     protected void initData() {

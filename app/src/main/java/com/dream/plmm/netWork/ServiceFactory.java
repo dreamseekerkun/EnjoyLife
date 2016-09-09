@@ -26,4 +26,13 @@ public class ServiceFactory {
         return healthyService;
     }
 
+    private static VideoService videoService;
+
+    public static VideoService getVideoService(){
+        if(videoService == null){
+            videoService = HttpClient.getYouKuInstance(HostURL.YOUKU_VIDEOS_URLS).createService(VideoService.class);
+        }
+        return videoService;
+    }
+
 }

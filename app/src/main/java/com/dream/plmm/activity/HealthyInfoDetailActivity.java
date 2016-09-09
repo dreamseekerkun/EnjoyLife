@@ -13,7 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.dream.plmm.R;
-import com.dream.plmm.bean.HealthyInfoDetail;
+import com.dream.plmm.bean.HealthyInfoDetailEntity;
 import com.dream.plmm.config.HostURL;
 import com.dream.plmm.netWork.ServiceFactory;
 import com.dream.plmm.utils.BitmapUtils;
@@ -57,39 +57,28 @@ public class HealthyInfoDetailActivity extends Activity implements View.OnClickL
         id = getIntent().getIntExtra("id", 0);
         initData();
         fab.setOnClickListener(this);
-//        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-//            @Override
-//            public boolean onMenuItemClick(MenuItem item) {
-//                switch (item.getItemId()) {
-//                    case R.id.action_share:
-//                        ShareUtil.getInstance(HealthyInfoDetailActivity.this).share("xxx", "title", "https://www.baidu.com");
-//                        break;
-//                }
-//                return true;
-//            }
-//        });
     }
 
-    HealthyInfoDetail healthyInfoDetail;
+    HealthyInfoDetailEntity healthyInfoDetailEntity;
 
     private void initData() {
         DialogUtil.show(this);
-        Call<HealthyInfoDetail> call = ServiceFactory.getHealthyService().getHealthyDetail(id);
-        call.enqueue(new Callback<HealthyInfoDetail>() {
+        Call<HealthyInfoDetailEntity> call = ServiceFactory.getHealthyService().getHealthyDetail(id);
+        call.enqueue(new Callback<HealthyInfoDetailEntity>() {
             @Override
-            public void onResponse(Call<HealthyInfoDetail> call, Response<HealthyInfoDetail> response) {
+            public void onResponse(Call<HealthyInfoDetailEntity> call, Response<HealthyInfoDetailEntity> response) {
                 if (response.isSuccessful()) {
                     DialogUtil.close();
-                    healthyInfoDetail = response.body();
-                    newsDetailTimeStap.setText(DateUtils.ConvertTime(healthyInfoDetail.getTime()));
-                    newsDetailBody.setText(Html.fromHtml(healthyInfoDetail.getMessage()));
-                    setToolBarLayout(healthyInfoDetail.getTitle());
-                    BitmapUtils.display(HealthyInfoDetailActivity.this, HostURL.PicDetail + healthyInfoDetail.getImg(), newsDetailPhotoIv);
+                    healthyInfoDetailEntity = response.body();
+                    newsDetailTimeStap.setText(DateUtils.ConvertTime(healthyInfoDetailEntity.getTime()));
+                    newsDetailBody.setText(Html.fromHtml(healthyInfoDetailEntity.getMessage()));
+                    setToolBarLayout(healthyInfoDetailEntity.getTitle());
+                    BitmapUtils.display(HealthyInfoDetailActivity.this, HostURL.PicDetail + healthyInfoDetailEntity.getImg(), newsDetailPhotoIv);
                 }
             }
 
             @Override
-            public void onFailure(Call<HealthyInfoDetail> call, Throwable t) {
+            public void onFailure(Call<HealthyInfoDetailEntity> call, Throwable t) {
                 DialogUtil.close();
             }
         });

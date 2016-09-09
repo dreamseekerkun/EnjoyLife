@@ -15,7 +15,7 @@ import com.dream.plmm.activity.HealthyInfoDetailActivity;
 import com.dream.plmm.adapter.OnItemChildClickListener;
 import com.dream.plmm.adapter.RecyclerViewAdapter;
 import com.dream.plmm.adapter.ViewHolderHelper;
-import com.dream.plmm.bean.HealthyInfoList;
+import com.dream.plmm.bean.HealthyInfoListEntity;
 import com.dream.plmm.config.HostURL;
 import com.dream.plmm.netWork.ServiceFactory;
 import com.dream.plmm.utils.BitmapUtils;
@@ -36,7 +36,7 @@ public class HealthyFragment extends BaseFragment implements OnItemChildClickLis
     private RecyclerView recyclerView;
     private SwipeRefreshLayout swipeRefreshLayout;
     private ListAdapter listAdapter;
-    private ArrayList<HealthyInfoList.TngouEntity> healthyList = new ArrayList<>();
+    private ArrayList<HealthyInfoListEntity.TngouEntity> healthyList = new ArrayList<>();
 
     @Override
     protected View initView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -136,14 +136,14 @@ public class HealthyFragment extends BaseFragment implements OnItemChildClickLis
         startActivity(intent);
     }
 
-    class ListAdapter extends RecyclerViewAdapter<HealthyInfoList.TngouEntity> {
+    class ListAdapter extends RecyclerViewAdapter<HealthyInfoListEntity.TngouEntity> {
 
         public ListAdapter(RecyclerView recyclerView) {
             super(recyclerView, R.layout.recyclerview_photos_item);
         }
 
         @Override
-        protected void fillData(ViewHolderHelper viewHolderHelper, int position, HealthyInfoList.TngouEntity model) {
+        protected void fillData(ViewHolderHelper viewHolderHelper, int position, HealthyInfoListEntity.TngouEntity model) {
             BitmapUtils.display(mActivity, HostURL.PicDetail + model.getImg(), viewHolderHelper.getImageView(R.id.news_info_photo));
             viewHolderHelper.getTextView(R.id.news_info_title).setText(model.getTitle());
             viewHolderHelper.getTextView(R.id.news_info_desc).setText(DateUtils.ConvertTime(model.getTime()));
@@ -156,10 +156,10 @@ public class HealthyFragment extends BaseFragment implements OnItemChildClickLis
     }
 
     private void getHealthyInfoList(int type) {
-        Call<HealthyInfoList> call = ServiceFactory.getHealthyService().getHealthyInfoList(type, 10);
-        call.enqueue(new Callback<HealthyInfoList>() {
+        Call<HealthyInfoListEntity> call = ServiceFactory.getHealthyService().getHealthyInfoList(type, 10);
+        call.enqueue(new Callback<HealthyInfoListEntity>() {
             @Override
-            public void onResponse(Call<HealthyInfoList> call, Response<HealthyInfoList> response) {
+            public void onResponse(Call<HealthyInfoListEntity> call, Response<HealthyInfoListEntity> response) {
                 if (response.isSuccessful()) {
                     DialogUtil.close();
                     healthyList = response.body().getTngou();
@@ -169,7 +169,7 @@ public class HealthyFragment extends BaseFragment implements OnItemChildClickLis
             }
 
             @Override
-            public void onFailure(Call<HealthyInfoList> call, Throwable t) {
+            public void onFailure(Call<HealthyInfoListEntity> call, Throwable t) {
 
             }
         });

@@ -16,7 +16,7 @@ import com.dream.plmm.activity.PhotoDetailActivity;
 import com.dream.plmm.adapter.OnItemChildClickListener;
 import com.dream.plmm.adapter.RecyclerViewAdapter;
 import com.dream.plmm.adapter.ViewHolderHelper;
-import com.dream.plmm.bean.TypeMM;
+import com.dream.plmm.bean.MMListEntity;
 import com.dream.plmm.config.HostURL;
 import com.dream.plmm.netWork.ServiceFactory;
 import com.dream.plmm.utils.BitmapUtils;
@@ -38,7 +38,7 @@ public class MMListFragment extends BaseFragment implements OnItemChildClickList
     private RecyclerView recyclerView;
     private SwipeRefreshLayout swipeRefreshLayout;
     private ListAdapter listAdapter;
-    private ArrayList<TypeMM.TngouEntity> mDatas = new ArrayList<>();
+    private ArrayList<MMListEntity.TngouEntity> mDatas = new ArrayList<>();
     private int type;
 
     @Override
@@ -91,6 +91,7 @@ public class MMListFragment extends BaseFragment implements OnItemChildClickList
     public void onItemChildClick(ViewGroup parent, View childView, int position) {
         Bundle bundle = new Bundle();
         bundle.putString("imgUrl", mDatas.get(position).getImg());
+        bundle.putString("imgTitle", mDatas.get(position).getTitle());
         Intent intent = new Intent(mActivity, PhotoDetailActivity.class);
         intent.putExtras(bundle);
         startActivity(intent);
@@ -110,14 +111,14 @@ public class MMListFragment extends BaseFragment implements OnItemChildClickList
         Toast.makeText(mActivity, "没有美女了", Toast.LENGTH_SHORT).show();
     }
 
-    class ListAdapter extends RecyclerViewAdapter<TypeMM.TngouEntity> {
+    class ListAdapter extends RecyclerViewAdapter<MMListEntity.TngouEntity> {
 
         public ListAdapter(RecyclerView recyclerView) {
             super(recyclerView, R.layout.recyclerview_photos_item);
         }
 
         @Override
-        protected void fillData(ViewHolderHelper viewHolderHelper, int position, TypeMM.TngouEntity model) {
+        protected void fillData(ViewHolderHelper viewHolderHelper, int position, MMListEntity.TngouEntity model) {
             BitmapUtils.display(mActivity, HostURL.PicDetail + model.getImg(), viewHolderHelper.getImageView(R.id.news_info_photo));
             viewHolderHelper.getTextView(R.id.news_info_title).setText(model.getTitle());
             viewHolderHelper.getTextView(R.id.news_info_desc).setText(DateUtils.ConvertTime(model.getTime()));
@@ -131,10 +132,10 @@ public class MMListFragment extends BaseFragment implements OnItemChildClickList
 
     private void getMMList(final int type) {
 
-        Call<TypeMM> typeMMCall = ServiceFactory.getMmService().getTypeMM(type, 1, 10);
-        typeMMCall.enqueue(new Callback<TypeMM>() {
+        Call<MMListEntity> typeMMCall = ServiceFactory.getMmService().getMMList(type, 1, 10);
+        typeMMCall.enqueue(new Callback<MMListEntity>() {
             @Override
-            public void onResponse(Call<TypeMM> call, Response<TypeMM> response) {
+            public void onResponse(Call<MMListEntity> call, Response<MMListEntity> response) {
                 if (response.isSuccessful()) {
                     DialogUtil.close();
                     mDatas = response.body().getTngou();
@@ -144,7 +145,7 @@ public class MMListFragment extends BaseFragment implements OnItemChildClickList
             }
 
             @Override
-            public void onFailure(Call<TypeMM> call, Throwable t) {
+            public void onFailure(Call<MMListEntity> call, Throwable t) {
                 DialogUtil.close();
             }
         });

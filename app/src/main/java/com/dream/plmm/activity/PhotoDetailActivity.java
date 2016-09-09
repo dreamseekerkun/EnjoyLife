@@ -5,10 +5,10 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -19,41 +19,46 @@ import com.dream.plmm.utils.SaveImageUtils;
 import com.dream.plmm.utils.ShareUtil;
 import com.umeng.socialize.UMShareAPI;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 /**
  * Created by likun on 16/3/16.
  */
 public class PhotoDetailActivity extends Activity implements View.OnClickListener, View.OnLongClickListener {
 
-    ImageView imageView;
-    Button btnShare;
-    //分享平台
+    String imgURL;
+    String imgTitle;
+    @Bind(R.id.iv_detail)
+    ImageView ivDetail;
+    @Bind(R.id.fab)
+    FloatingActionButton fabShare;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.photo_detail);
-        imageView = (ImageView) findViewById(R.id.iv_detail);
-        btnShare = (Button) findViewById(R.id.btn_share);
+        ButterKnife.bind(this);
         Intent intent = this.getIntent();
         Bundle bundle = intent.getExtras();
-        String imgURL = bundle.getString("imgUrl", "");
+        imgURL = bundle.getString("imgUrl", "");
+        imgTitle = bundle.getString("imgTitle", "");
         if (!TextUtils.isEmpty(imgURL)) {
-            BitmapUtils.display(this, HostURL.PicDetail + imgURL, imageView);
+            BitmapUtils.display(this, HostURL.PicDetail + imgURL, ivDetail);
         } else {
             Toast.makeText(this, "imgURL is null ", Toast.LENGTH_SHORT).show();
         }
-        imageView.setOnClickListener(this);
-        imageView.setOnLongClickListener(this);
-        btnShare.setOnClickListener(this);
+        ivDetail.setOnClickListener(this);
+        ivDetail.setOnLongClickListener(this);
+        fabShare.setOnClickListener(this);
     }
-
 
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.btn_share:
-                ShareUtil.getInstance(this).share("sssss","title","http://www.baidu.com");
+            case R.id.fab:
+                ShareUtil.getInstance(this).shareImage(HostURL.PicDetail + imgURL);
                 break;
             case R.id.iv_detail:
                 finish();
@@ -69,10 +74,10 @@ public class PhotoDetailActivity extends Activity implements View.OnClickListene
         builder.setItems(new String[]{getResources().getString(R.string.save_picture)}, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                imageView.setDrawingCacheEnabled(true);
-                Bitmap imageBitmap = imageView.getDrawingCache();
+                ivDetail.setDrawingCacheEnabled(true);
+                Bitmap imageBitmap = ivDetail.getDrawingCache();
                 if (imageBitmap != null) {
-                    new SaveImageUtils(PhotoDetailActivity.this, imageView).execute(imageBitmap);
+                    new SaveImageUtils(PhotoDetailActivity.this, ivDetail).execute(imageBitmap);
                 }
             }
         });
@@ -84,5 +89,11 @@ public class PhotoDetailActivity extends Activity implements View.OnClickListene
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         UMShareAPI.get(PhotoDetailActivity.this).onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ButterKnife.unbind(this);
     }
 }

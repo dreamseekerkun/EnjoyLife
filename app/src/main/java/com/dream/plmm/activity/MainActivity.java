@@ -5,22 +5,19 @@ import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.ViewGroup;
-
 import com.dream.plmm.AppManager;
 import com.dream.plmm.R;
+import com.dream.plmm.adapter.BaseFragmentStatePagerAdapter;
 import com.dream.plmm.bean.ClassifyMM;
 import com.dream.plmm.fragment.MMListFragment;
 import com.dream.plmm.netWork.ServiceFactory;
 import com.dream.plmm.utils.DialogUtil;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -56,7 +53,7 @@ public class MainActivity extends BaseActivity {
 
     private void initViewPager() {
         mTabs.setTabMode(TabLayout.MODE_SCROLLABLE);
-        mViewPager.setAdapter(new listPagerAdapter(getSupportFragmentManager()));
+        mViewPager.setAdapter(new listPagerAdapter(getSupportFragmentManager(), MMType));
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mTabs) {
             @Override
             public void onPageSelected(int position) {
@@ -65,11 +62,10 @@ public class MainActivity extends BaseActivity {
         mTabs.setupWithViewPager(mViewPager);
     }
 
+    private class listPagerAdapter extends BaseFragmentStatePagerAdapter {
 
-    private class listPagerAdapter extends FragmentStatePagerAdapter {
-
-        public listPagerAdapter(FragmentManager fm) {
-            super(fm);
+        public listPagerAdapter(FragmentManager supportFragmentManager, List<ClassifyMM.TngouEntity> mmType) {
+            super(supportFragmentManager,mmType);
         }
 
         @Override
@@ -78,24 +74,14 @@ public class MainActivity extends BaseActivity {
         }
 
         @Override
-        public int getCount() {
-            return MMType.size();
-        }
-
-        @Override
         public CharSequence getPageTitle(int position) {
             return MMType.get(position).getDescription();
         }
 
-        @Override
-        public void destroyItem(ViewGroup container, int position, Object object) {
-            super.destroyItem(container, position, object);
-        }
     }
 
 
     protected void initData() {
-        DialogUtil.show(this);
         Call<ClassifyMM> classsifyMM = ServiceFactory.getMmService().getClassifyMM();
         classsifyMM.enqueue(new Callback<ClassifyMM>() {
             @Override
@@ -113,6 +99,7 @@ public class MainActivity extends BaseActivity {
             }
         });
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

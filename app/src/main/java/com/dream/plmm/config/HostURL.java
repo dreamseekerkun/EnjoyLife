@@ -6,5 +6,6 @@ package com.dream.plmm.config;
 public class HostURL {
 
     public static final String BASE_URL = "http://www.tngou.net/";
+    public static final String YOUKU_VIDEOS_URLS = "https://openapi.youku.com/v2/";
     public static final String PicDetail = "http://tnfs.tngou.net/img/";
 }

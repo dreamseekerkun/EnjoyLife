@@ -24,4 +24,8 @@
     <color name="alpha_15_black">#26000000</color>
     <color name="alpha_20_black">#33000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <color name="player_container_bg">#FFDDDDDD</color>
+    <color name="sr1_color_primary">#FF4E3E7F</color>
+    <color name="music_player_user_name_color">#FF1A7BE8</color>
 </resources>
