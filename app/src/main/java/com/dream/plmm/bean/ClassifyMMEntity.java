@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * Created by likun on 16/8/17.
  */
-public class ClassifyMM {
+public class ClassifyMMEntity {
 
     /**
      * status : true

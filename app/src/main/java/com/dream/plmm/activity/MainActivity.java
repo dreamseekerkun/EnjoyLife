@@ -14,7 +14,7 @@ import android.view.MenuItem;
 import com.dream.plmm.AppManager;
 import com.dream.plmm.R;
 import com.dream.plmm.adapter.BaseFragmentStatePagerAdapter;
-import com.dream.plmm.bean.ClassifyMM;
+import com.dream.plmm.bean.ClassifyMMEntity;
 import com.dream.plmm.fragment.MMListFragment;
 import com.dream.plmm.netWork.ServiceFactory;
 import com.dream.plmm.utils.DialogUtil;
@@ -35,7 +35,7 @@ public class MainActivity extends BaseActivity {
     TabLayout mTabs;
     @Bind((R.id.viewpager))
     ViewPager mViewPager;
-    private List<ClassifyMM.TngouEntity> MMType = new ArrayList<>();
+    private List<ClassifyMMEntity.TngouEntity> MMType = new ArrayList<>();
     private static long DOUBLE_CLICK_TIME = 0L;
 
 
@@ -64,7 +64,7 @@ public class MainActivity extends BaseActivity {
 
     private class listPagerAdapter extends BaseFragmentStatePagerAdapter {
 
-        public listPagerAdapter(FragmentManager supportFragmentManager, List<ClassifyMM.TngouEntity> mmType) {
+        public listPagerAdapter(FragmentManager supportFragmentManager, List<ClassifyMMEntity.TngouEntity> mmType) {
             super(supportFragmentManager,mmType);
         }
 
@@ -82,10 +82,10 @@ public class MainActivity extends BaseActivity {
 
 
     protected void initData() {
-        Call<ClassifyMM> classsifyMM = ServiceFactory.getMmService().getClassifyMM();
-        classsifyMM.enqueue(new Callback<ClassifyMM>() {
+        Call<ClassifyMMEntity> classsifyMM = ServiceFactory.getMmService().getClassifyMM();
+        classsifyMM.enqueue(new Callback<ClassifyMMEntity>() {
             @Override
-            public void onResponse(Call<ClassifyMM> call, Response<ClassifyMM> response) {
+            public void onResponse(Call<ClassifyMMEntity> call, Response<ClassifyMMEntity> response) {
                 if (response.isSuccessful()) {
                     DialogUtil.close();
                     MMType = response.body().getTngou();
@@ -94,7 +94,7 @@ public class MainActivity extends BaseActivity {
             }
 
             @Override
-            public void onFailure(Call<ClassifyMM> call, Throwable t) {
+            public void onFailure(Call<ClassifyMMEntity> call, Throwable t) {
                 DialogUtil.close();
             }
         });

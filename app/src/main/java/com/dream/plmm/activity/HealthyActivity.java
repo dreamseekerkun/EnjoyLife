@@ -9,7 +9,7 @@ import android.view.Menu;
 
 import com.dream.plmm.R;
 import com.dream.plmm.adapter.BaseFragmentStatePagerAdapter;
-import com.dream.plmm.bean.ClassifyHealthy;
+import com.dream.plmm.bean.ClassifyHealthyEntity;
 import com.dream.plmm.fragment.HealthyFragment;
 import com.dream.plmm.netWork.ServiceFactory;
 import com.dream.plmm.utils.DialogUtil;
@@ -33,7 +33,7 @@ public class HealthyActivity extends BaseActivity {
     TabLayout mTabs;
     @Bind((R.id.viewpager))
     ViewPager mViewPager;
-    private List<ClassifyHealthy.TngouEntity> healthyType = new ArrayList<>();
+    private List<ClassifyHealthyEntity.TngouEntity> healthyType = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,10 +43,10 @@ public class HealthyActivity extends BaseActivity {
     }
 
     protected void initData() {
-        Call<ClassifyHealthy> call = ServiceFactory.getHealthyService().getHealthyClassify();
-        call.enqueue(new Callback<ClassifyHealthy>() {
+        Call<ClassifyHealthyEntity> call = ServiceFactory.getHealthyService().getHealthyClassify();
+        call.enqueue(new Callback<ClassifyHealthyEntity>() {
             @Override
-            public void onResponse(Call<ClassifyHealthy> call, Response<ClassifyHealthy> response) {
+            public void onResponse(Call<ClassifyHealthyEntity> call, Response<ClassifyHealthyEntity> response) {
                 if (response.isSuccessful()) {
                     DialogUtil.close();
                     healthyType = response.body().getTngou();
@@ -55,7 +55,7 @@ public class HealthyActivity extends BaseActivity {
             }
 
             @Override
-            public void onFailure(Call<ClassifyHealthy> call, Throwable t) {
+            public void onFailure(Call<ClassifyHealthyEntity> call, Throwable t) {
                 DialogUtil.close();
             }
         });
@@ -75,7 +75,7 @@ public class HealthyActivity extends BaseActivity {
 
     private class listPagerAdapter extends BaseFragmentStatePagerAdapter {
 
-        public listPagerAdapter(FragmentManager fm, List<ClassifyHealthy.TngouEntity> healthyType) {
+        public listPagerAdapter(FragmentManager fm, List<ClassifyHealthyEntity.TngouEntity> healthyType) {
             super(fm,healthyType);
         }
 

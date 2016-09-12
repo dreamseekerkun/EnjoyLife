@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * Created by likun on 16/8/19.
  */
-public class ClassifyHealthy {
+public class ClassifyHealthyEntity {
 
     /**
      * status : true

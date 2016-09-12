@@ -1,6 +1,6 @@
 package com.dream.plmm.netWork;
 
-import com.dream.plmm.bean.ClassifyMM;
+import com.dream.plmm.bean.ClassifyMMEntity;
 import com.dream.plmm.bean.MMDetailEntity;
 import com.dream.plmm.bean.MMListEntity;
 
@@ -18,7 +18,7 @@ public interface MMService  {
     //获取美女类别
     @Headers("Cache-Control: public, max-age=36000")
     @GET("tnfs/api/classify")
-    Call<ClassifyMM> getClassifyMM();
+    Call<ClassifyMMEntity> getClassifyMM();
 
     //获取具体分类美女列表
     @Headers("Cache-Control: public, max-age=36000")

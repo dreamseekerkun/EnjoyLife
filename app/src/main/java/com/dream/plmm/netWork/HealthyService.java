@@ -1,6 +1,6 @@
 package com.dream.plmm.netWork;
 
-import com.dream.plmm.bean.ClassifyHealthy;
+import com.dream.plmm.bean.ClassifyHealthyEntity;
 import com.dream.plmm.bean.HealthyInfoDetailEntity;
 import com.dream.plmm.bean.HealthyInfoListEntity;
 import retrofit2.Call;
@@ -17,7 +17,7 @@ public interface HealthyService  {
     //获取健康知识分类
     @Headers("Cache-Control: public, max-age=36000")
     @GET("api/lore/classify")
-    Call<ClassifyHealthy> getHealthyClassify();
+    Call<ClassifyHealthyEntity> getHealthyClassify();
 
     //获取健康知识列表
     @Headers("Cache-Control: public, max-age=36000")
